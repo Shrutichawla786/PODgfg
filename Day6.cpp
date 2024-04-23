@@ -1,6 +1,6 @@
 Q.Rohan's Love for Matrix
 code-->  int firstElement(int n) {
-        // code here
+
         int a00 = 1;
         int a01 = 1;
         int a10 = 1;
