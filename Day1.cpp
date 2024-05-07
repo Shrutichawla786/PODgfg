@@ -1,16 +1,31 @@
-Q.Two Repeated Elements
-code-->vector<int> twoRepeated (int arr[], int n) {
-        // Your code here
-        vector<int>ans;
-        unordered_map<int , int>mp;
-        for(int i=0;i<n+2;i++){
-            mp[arr[i]]++;
-            if(mp[arr[i]]==2){
-                ans.push_back(arr[i]);
-            }
-        }
-        return ans;
-        
+Reverse Level Order Traversal
+code-->void level(Node * root , vector<int>&ans){
+    if(root==NULL){
+        return;
     }
-Expected Time Complexity: O(n).
-Expected Auxiliary Space: O(1). 
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty()){
+        Node * front= q.front();
+        q.pop();
+        ans.push_back(front->data);
+        if(front->right){
+            q.push(front->right);
+        }
+        if(front->left){
+            q.push(front->left);
+        }
+
+    }
+    
+}
+vector<int> reverseLevelOrder(Node *root)
+{
+    // code here
+    vector<int>ans;
+    level(root , ans);
+    reverse(ans.begin() , ans.end());
+    return ans;
+    
+    
+}
