@@ -1,29 +1,32 @@
-Q.Three way partitioning
-code-->    void swap(vector<int>& array , int i , int j){
-        int temp = array[j];
-        array[j]= array[i];
-        array[i]=temp;
-    }
-    void threeWayPartition(vector<int>& array,int a, int b)
-    {
-        // code here 
-        int start=0;
-        int mid=0;
-        int last= array.size()-1;
-        while(mid<=last){
-            if(array[mid]<a){
-                swap(array , mid , start);
-                mid++;
-                start++;
-            }
-            else if(array[mid]>b){
-                swap(array , mid , last);
-                last--;
-            }
-            else{
-                mid++;
-            }
+Q.Combination Sum II
+code-->
+class Solution{
+    void solve(vector<int> &arr, int target, int start, vector<int> &current, vector<vector<int>> &result){
+        if(target == 0){
+            result.push_back(current);
+            return;
+        }
+        
+        for(int i=start; i<arr.size(); i++){
+            if(i>start && arr[i] == arr[i-1])
+                continue;
+            else if (target < arr[i])
+                break;
+            
+            current.push_back(arr[i]);
+            solve(arr, (target - arr[i]), (i+1), current, result);
+            current.pop_back();
         }
     }
-Expected Time Complexity: O(n)
-Expected Auxiliary Space: O(1)
+public:
+    vector<vector<int>> CombinationSum2(vector<int> arr,int n,int k)
+    {
+        vector<vector<int>> result;
+        vector<int> current;
+        
+        std::sort(arr.begin(), arr.end());
+        solve(arr, k, 0, current, result);
+        
+        return result;
+    }
+};
