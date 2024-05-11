@@ -1,21 +1,15 @@
-Q.Row with minimum number of 1's
-code->int minRow(int n, int m, vector<vector<int>> a) {
+Q.Juggler Sequence
+code->class Solution {
+  public:
+    vector<int> jugglerSequence(int n) {
         // code here
-        int minrow=0;
-        int mini=INT_MAX;
-        for(int i=0;i<n;i++){
-            int sum=0;
-            for(int j=0;j<m;j++){
-                if(a[i][j]==1){
-                    sum++;
-                }
-            }
-            if(mini>sum){
-                mini=sum;
-                minrow=i+1;
-            }
+        vector<int>ans;
+        ans.push_back(n);
+        while(n!=1){
+            n= (n&1)?pow(n,1.5):pow(n,0.5);
+            ans.push_back(n);
         }
-        return minrow;
+        return ans;
+        
     }
-Expected Time Complexity:O(n*m)
-Expected Auxillary Space:O(1)
+};
