@@ -1,24 +1,32 @@
-Q.Rohan's Love for Matrix
-code-->  int firstElement(int n) {
+Q.Minimum steps to destination
+code->
 
-        int a00 = 1;
-        int a01 = 1;
-        int a10 = 1;
-        int a11 = 0;
-        int b00 = 1;
-        int b01 = 1;
-        int b10 = 1;
-        int b11 = 0;
-        if(n == 1)
-            return a10;
-        for(int i = 2; i <= n; i++)
-        {
-            int left  = b10 * a00 + b11 * a10;
-            int right = b10 * a01 + b11 * a11;
-            b10 = left%1000000007;
-            b11 = right%1000000007;
+int minSteps(int d) {
+        // code here
+          queue<int> q;
+        q.push(0);
+        int l = 1;
+        while(true){
+            int n = q.size();
+            unordered_set<int> pushed;
+            for(int i = 0; i < n; i++){
+                auto f = q.front();
+                q.pop();
+                int a = f + l, b = f + (-1)*l;
+                if(a == d or b == d){
+                    return l;
+                }
+                if(!pushed.count(a)){
+                    q.push(a);
+                    pushed.insert(a);
+                }
+                if(!pushed.count(b)){
+                    q.push(b);   
+                    pushed.insert(b);
+                }
+            }
+            l++;
         }
-        return b10%1000000007;
+        return -1;
+    
     }
-Expected Time Complexity: O(n)
-Expected Auxiliary Space: O(1)
