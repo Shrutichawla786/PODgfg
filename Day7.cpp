@@ -1,23 +1,31 @@
-Q.Paths to reach origin
-code-->nt help(int i ,int j ,vector<vector<int>>& memo){
-        if(i==0 and j==0){
-            return 1;
-        }
-        if(i<0 or j<0){
-            return 0;
-        }
-        if(memo[i][j]!=-1){
-            return memo[i][j];
-        }
-        int a= help(i-1 ,j , memo) ;
-        int b =help(i , j-1 ,memo);
-        return memo[i][j]= (a+b )%mod;
+
+public:
+  void dfs(map<int,list<int>>&adj_list,vector<int>&visited,int i,int &ct1,int &ct2){
+      visited[i]=1;
+      ct1++;
+      for(auto it:adj_list[i]){
+          ct2++;
+          if(!visited[it]){
+              dfs(adj_list,visited,it,ct1,ct2);
+          }
+      }
+  }
+    int findNumberOfGoodComponent(int e, int v, vector<vector<int>> &edges) {
+       vector<int>visited(v+1,0);
+       map<int,list<int>>adj_list;
+       for(auto it:edges){
+           adj_list[it[0]].push_back(it[1]);
+           adj_list[it[1]].push_back(it[0]);
+       }
+       int ans=0;
+       for(int i=1;i<=v;i++){
+           if(!visited[i]){
+               int ct1=0;
+               int ct2=0;
+               dfs(adj_list,visited,i,ct1,ct2);
+               
+               if((ct1*(ct1-1))==ct2)ans++;
+           }
+       }
+       return ans;
     }
-    int ways(int x, int y)
-    {
-        //code here.
-        vector<vector<int>> memo(x+1 , vector<int>(y+1 ,-1));
-        return help(x ,y , memo);
-    }
-Expected Time Complexity: O(x*y).
-Expected Auxiliary Space: O(x*y).
