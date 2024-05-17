@@ -1,32 +1,57 @@
-Q.Arrange Consonants and Vowels
-code->class Solution {
-  public:
-    // task is to complete this function
-    // function should return head to the list after making
-    // necessary arrangements
-    struct Node* arrangeCV(Node* head) {
-        // Code here
-        Node * vovel= new Node(NULL);
-        Node * volvel1= vovel;
-        Node * con= new Node(NULL);
-        Node * con1= con;
-        Node * temp = head;
-        while(temp!=NULL){
-            if(temp->data=='a'||temp->data=='e'||temp->data=='i'||temp->data=='o'||temp->data=='u')
-          {
-                vovel->next = temp;
-                vovel=vovel->next;
-            }
-            else{
-                con->next = temp;
-                con=con->next;
-            }
-            temp=temp->next;
+Q.Divisibility tree
+code-->
+class Solution {
+public:
+
+    int cnt = 0;
+    
+    void make_adj(vector<int>adj[], vector<vector<int>>&edges){
+        
+        for(auto it: edges){
+            int u = it[0];
+            int v = it[1];
+            
+            adj[u].push_back(v);
+            adj[v].push_back(u); //bidirectional edge;
         }
-        vovel->next=con1->next;
-        con->next=NULL;
-        return volvel1->next;;
+        
+        return;
+        
     }
+    
+    
+    int f(int node, vector<int>adj[], vector<int>&visited){
+        
+        visited[node] = 1;
+        
+        int total_nodes = 0;
+        
+        for(auto it: adj[node]){
+            if(!visited[it]){
+               total_nodes += f(it, adj, visited);
+            }
+        }
+        
+        
+        
+        total_nodes += 1;
+        
+        if((node != 1) && (total_nodes %2 == 0)) cnt++;
+        
+        return total_nodes;
+        
+    }
+    
+
+	int minimumEdgeRemove(int n, vector<vector<int>>edges){
+	    // Code here
+	    vector<int>adj[n+1];
+	    make_adj(adj, edges);
+	    vector<int>visited(n+1, 0);
+	    
+	    int dummy = f(1, adj, visited);
+	    
+	    
+	    return cnt;
+	}
 };
-Expected Time Complexity :  O(n)
-Expected Auxiliary Space :  O(1)
