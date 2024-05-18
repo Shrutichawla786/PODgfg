@@ -1,29 +1,10 @@
-Q.K distance from root
-code-->class Solution
-{
-    public:
-    // function should print the nodes at k distance from root
-    void solve(Node * root , int k , vector<int>&ans){
-        if(root==NULL){
-            return;
-        }
-        if(k==0){
-            ans.push_back(root->data);
-        }
-        solve(root->left , k-1 , ans);
-        solve(root->right , k-1 , ans);
-    }
-    vector<int> Kdistance(struct Node *root, int k)
+int findPeakElement(vector<int>& a) 
     {
-      // Your code here
-      vector<int>ans;
-      if(!root){
-          return {};
-          
-      }
-      solve(root  , k , ans);
-      return ans;
+        // Code here.
+        int n = a.size();
+        int maxi=0;
+        for(int i =0;i<n;i++){
+            maxi=max(maxi , a[i]);
+        }
+        return maxi;
     }
-};
-Expected Time Complexity: O(n).
-Expected Auxiliary Space: O(Height of the Tree).
