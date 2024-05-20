@@ -1,31 +1,13 @@
-Q.Construct Binary Tree from Inorder and Postorder
-code->Construct Binary Tree from Inorder and Postorder
-class Solution
-{
-    public:
-
-    //Function to return a tree created from postorder and inoreder traversals.
-    Node *solve(int in[], int post[], int inStart, int inEnd, int posStart, int posEnd)
-{
-    if (posEnd < 0 || inStart > inEnd)
-        return NULL;
-    Node *root = new Node(post[posEnd]);
-    int i = inStart;
-    for (; i <= inEnd; i++)
-    {
-        if (root->data == in[i])
-        {
-            break;
+	long long int PowMod(long long int x,long long int n,long long int M)
+		{
+		    // Code here
+		    long long ans =1;
+		    while(n>0){
+                if(n&1){
+                    ans =(ans * x) % M;
+                }
+                x=(x*x) % M;
+                n=n/2;
+            }
+           return ans;
         }
-    }
-    int left = i - inStart;
-    int right = inEnd - i;
-    root->left = solve(in, post, inStart, i - 1, posStart, posStart + left - 1);
-    root->right = solve(in, post, i + 1, inEnd, posEnd - right, posEnd - 1);
-    return root;
-}
-Node *buildTree(int in[], int post[], int n)
-{
-    return solve(in, post, 0, n - 1, 0, n - 1);
-}
-};
